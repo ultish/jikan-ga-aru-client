@@ -1,0 +1,7 @@
+{{#if this.users.loading}}
+  Loading...
+{{else}}
+  {{#each this.users.data.users as |user|}}
+    Username: {{user.username}}
+  {{/each}}
+{{/if}}

@@ -3,6 +3,7 @@
 module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'jikan-ga-aru-client',
+    podModulePrefix: 'jikan-ga-aru-client/pods',
     environment,
     rootURL: '/',
     locationType: 'auto',

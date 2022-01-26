@@ -1,7 +1,23 @@
 # jikan-ga-aru-client
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This README outlines the details of collaborating on this Ember application. A short introduction of this app could
+easily go here.
+
+## Tailwind generation
+
+```
+npm run tailwind:watch
+```
+
+## Fetch GraphQL Schema from Server
+
+```
+get-graphql-schema http://localhost:8080/graphql > schema.graphqls
+```
+
+You'll need to clean up the schema file to remove any extra bits that are included (eg ErrorMessage etc)
+
+## Generate Typescript types from GraphQL schema file
 
 ## Prerequisites
 
@@ -52,5 +68,5 @@ Specify what it takes to deploy your app.
 * [ember.js](https://emberjs.com/)
 * [ember-cli](https://ember-cli.com/)
 * Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+    * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
+    * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)

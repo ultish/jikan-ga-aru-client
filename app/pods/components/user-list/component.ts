@@ -13,6 +13,10 @@ interface UserListArgs {}
 
 export default class UserList extends Component<UserListArgs> {
   users = useQuery<GQLQuery, QueryToUsersArgs>(this, () => [GET_USERS]);
+
+  get totalUsers(): number {
+    return this.users.data?.users?.length || 0;
+  }
 }
 
 // TODO the useQuery won't update from server automatically. Try using

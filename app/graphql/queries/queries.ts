@@ -27,9 +27,10 @@ export const GET_DAYS = gql`
         cursor
         node {
           id
-          date
-          week
           mode
+          week
+          year
+          date
         }
       }
       pageInfo {

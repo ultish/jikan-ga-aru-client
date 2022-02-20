@@ -1,12 +1,7 @@
 <h2 class="text-2xl">
   Users
-  <div class="inline-block">
-    <div class="bg-green-400 text-base text-gray-800 w-5 h-5 rounded-full flex justify-center items-center">
-      {{this.totalUsers}}
-    </div>
-  </div>
+  <Ui::Counter @value={{this.totalUsers}} />
 </h2>
-
 
 {{#if this.users.loading}}
   Loading...

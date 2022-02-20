@@ -1,9 +1,3 @@
-type User {
-    id: ID!
-    username: String!
-    trackedDays: [TrackedDay!]
-}
-
 type ChargeCode {
     id: ID!
     name: String!
@@ -46,8 +40,8 @@ type PageInfo {
 type Query {
     chargeCodes(ids: [ID!], name: String, code: String, description: String, expired: Boolean): [ChargeCode!]
     timeCharges(trackedDayId: String, timeSlot: Int, chargeCodeId: ID): [TimeCharge!]
-    timeChargeTotals(week: Int): [TimeChargeTotal!]
-    trackedDays: [TrackedDay!]
+    timeChargeTotals(weekOfYear: WeekOfYear): [TimeChargeTotal!]
+    trackedDays(id: ID): [TrackedDay!]
     trackedDaysPaginated(after: String, first: Int): TrackedDayConnection
     trackedTasks(trackedDayId: ID): [TrackedTask!]
     users(username: String): [User!]
@@ -89,10 +83,12 @@ type TrackedDay {
     id: ID!
     date: Float!
     week: Int!
+    year: Int!
     mode: DayMode!
     user: User
     trackedTasks: [TrackedTask!]
     timeCharges: [TimeCharge!]
+    timeChargeTotals: [TimeChargeTotal!]
 }
 
 """
@@ -117,4 +113,14 @@ type TrackedTask {
     chargeCodes: [ChargeCode!]
 }
 
+type User {
+    id: ID!
+    username: String!
+    trackedDays: [TrackedDay!]
+}
+
+input WeekOfYear {
+    week: Int
+    year: Int!
+}
 

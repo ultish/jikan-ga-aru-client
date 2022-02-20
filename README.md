@@ -19,6 +19,10 @@ You'll need to clean up the schema file to remove any extra bits that are includ
 
 ## Generate Typescript types from GraphQL schema file
 
+```
+graphql-schema-typescript generate-ts './schema.graphql' --output app/graphql/schemas.d.ts
+```
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.

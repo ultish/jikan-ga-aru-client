@@ -23,7 +23,7 @@
     "test:ember": "ember test",
     "tailwind:build": "npx tailwindcss -c ./config/tailwind/tailwind.config.js -i ./config/tailwind/tailwind-input.css -o ./public/assets/tailwind.css",
     "tailwind:watch": "npx tailwindcss -c ./config/tailwind/tailwind.config.js -i ./config/tailwind/tailwind-input.css -o ./public/assets/tailwind.css --watch",
-    "gen": "graphql-schema-typescript generate-ts /Users/ultish/projects/jikan-ga-aru-client/schema.graphqls --output app/graphql/schemas.d.ts",
+    "gen": "graphql-schema-typescript generate-ts './schema.graphql' --output app/graphql/schemas.d.ts",
     "gen:watch": "nodemon --watch ./schema.graphqls --exec npm run gen"
   },
   "devDependencies": {

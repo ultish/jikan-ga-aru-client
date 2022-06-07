@@ -9,7 +9,9 @@
   <ul>
     {{#each this.days.data.trackedDaysPaginated.edges as |day|}}
       <li>
-        <LinkTo @route="tracker.day" @model={{day.node.id}}>{{day-js date=day.node.date}}</LinkTo>
+        <LinkTo @route="tracker.day" @model={{day.node.id}}>
+          {{day-js date=day.node.date}}
+        </LinkTo>
       </li>
     {{/each}}
   </ul>

@@ -1,22 +1,11 @@
 import Route from '@ember/routing/route';
-import {
-  GQLQuery,
-  QueryToTrackedDaysArgs,
-} from 'jikan-ga-aru-client/graphql/schemas';
-import { GET_DAY } from 'jikan-ga-aru-client/graphql/queries/queries';
-import { useQuery } from 'glimmer-apollo';
 
-export default class TrackerDay extends Route {
+type Resolved<P> = P extends Promise<infer T> ? T : P;
+
+export type TrackerDayModel = Resolved<ReturnType<TrackerDayRoute['model']>>;
+
+export default class TrackerDayRoute extends Route {
   id: string | undefined = undefined;
-
-  dayQuery = useQuery<GQLQuery, QueryToTrackedDaysArgs>(this, () => [
-    GET_DAY,
-    {
-      variables: {
-        id: this.id,
-      },
-    },
-  ]);
 
   async model({ id }: { id: string }) {
     console.log(id);
@@ -29,8 +18,8 @@ export default class TrackerDay extends Route {
 
     // fetch the timeChargeTotals using the week and year of trackedday
 
-    await this.dayQuery.promise;
-
-    return this.dayQuery;
+    return {
+      id,
+    };
   }
 }

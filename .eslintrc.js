@@ -19,7 +19,9 @@ module.exports = {
   env: {
     browser: true,
   },
-  rules: {},
+  rules: {
+    'no-curly-component-invocation': { allow: ['day-js'] },
+  },
   overrides: [
     // node files
     {
@@ -28,11 +30,11 @@ module.exports = {
         './.prettierrc.js',
         './.template-lintrc.js',
         './ember-cli-build.js',
+        './index.js',
         './testem.js',
         './blueprints/*/index.js',
         './config/**/*.js',
-        './lib/*/index.js',
-        './server/**/*.js',
+        './tests/dummy/config/**/*.js',
       ],
       parserOptions: {
         sourceType: 'script',
@@ -43,11 +45,6 @@ module.exports = {
       },
       plugins: ['node'],
       extends: ['plugin:node/recommended'],
-      rules: {
-        // this can be removed once the following is fixed
-        // https://github.com/mysticatea/eslint-plugin-node/issues/77
-        'node/no-unpublished-require': 'off',
-      },
     },
     {
       // Test files:

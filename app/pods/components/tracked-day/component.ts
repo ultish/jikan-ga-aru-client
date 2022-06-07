@@ -1,13 +1,30 @@
 import Component from '@glimmer/component';
-import { GQLTrackedDay } from 'jikan-ga-aru-client/graphql/schemas';
+import { useQuery } from 'glimmer-apollo';
+import {
+  GQLQuery,
+  QueryToTrackedDaysArgs,
+} from 'jikan-ga-aru-client/graphql/schemas';
+import { GET_DAY } from 'jikan-ga-aru-client/graphql/queries/queries';
 
-// import { tracked } from '@glimmer/tracking';
-interface TrackedDayArgs {
-  trackedDay: GQLTrackedDay;
+interface TrackedDayBaseArgs {
+  id: string;
 }
 
-export default class DayList extends Component<TrackedDayArgs> {
-  // get totalDays(): number {
-  //   return this.days.data?.trackedDaysPaginated?.edges?.length || 0;
-  // }
+export default class TrackedDayBase extends Component<TrackedDayBaseArgs> {
+  dayQuery = useQuery<GQLQuery, QueryToTrackedDaysArgs>(this, () => [
+    GET_DAY,
+    {
+      variables: {
+        id: this.args.id,
+      },
+    },
+  ]);
+
+  get day() {
+    if (this.dayQuery.loading) {
+      return undefined;
+    } else {
+      return this.dayQuery.data?.trackedDays?.get(0);
+    }
+  }
 }

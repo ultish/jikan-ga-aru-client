@@ -1,7 +1,11 @@
-{{@trackedDay.date}}
-
-<hr />
-<TimeChargeTotals
-  @year={{@trackedDay.year}}
-  @week={{@trackedDay.week}}
-/>
+<div class="overflow-y-auto {{this.styleNamespace}}-body">
+  <TrackedDay::Scale @day={{this.day}} />
+</div>
+<div
+  class="tracked-base-totals overflow-y-auto bg-emerald-500 text-green-900 {{this.styleNamespace}}-totals">
+  Totals
+  <TimeChargeTotals
+    @year={{this.day.year}}
+    @week={{this.day.week}}
+  />
+</div>

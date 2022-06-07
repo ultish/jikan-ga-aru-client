@@ -1,0 +1,20 @@
+<div
+  class="{{this.styleNamespace}}"
+  {{did-insert this.onResize}}
+  {{did-resize this.onResize}}
+>
+
+  Width: {{this.containerWidth}}
+
+  <div id="tick-container">
+    {{#each this.formattedTicks as |tick|}}
+      <div class="tick-hour text-base odd:bg-green-800">
+        {{tick}}
+      </div>
+    {{/each}}
+  </div>
+
+
+  {{@day.date}}
+ 
+</div>

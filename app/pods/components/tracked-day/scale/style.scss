@@ -1,0 +1,26 @@
+& {
+  $sideWidth: 255px;
+  $timesheetHeight: 100px;
+  $headerHeight: 50px;
+
+  $containerHeight: calc(100vh - #{$timesheetHeight} - #{$headerHeight});
+
+  #tick-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 300px;
+    display: flex;
+    flex-direction: row;
+
+    .tick-hour {
+      width: 60px;
+      min-width: 60px;
+      height: $containerHeight;
+      display: inline-block;
+      user-select: none;
+      text-align: center;
+    }
+  }
+}

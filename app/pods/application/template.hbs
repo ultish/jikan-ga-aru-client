@@ -7,13 +7,12 @@
       flex flex-col
       transition-all duration-300
       overflow-y-auto
-      bg-teal-900 text-amber-400 text-sm bg-"
+      text-sm bg-blue-800 text-emerald-500"
   >
-    The sidebar here
     <DayList />
   </div>
   <div class="flex-1 overflow-y-hidden2">
-    <div id="header" class="flex bg-teal-900 items-center text-amber-300 text-sm">
+    <div id="header" class="flex bg-blue-800 items-center text-amber-300 text-sm">
       <div class="p4">
         <button type="button" class="p-1 mr-4" onclick={{this.sideBarControl}}>
           <FaIcon @icon="burger" />
@@ -22,7 +21,7 @@
       </div>
     </div>
     <div
-      class="bg-emerald-800 text-teal-400 text-sm overflow-y-hidden">
+      class="overflow-y-hidden">
       {{outlet}}
     </div>
   </div>

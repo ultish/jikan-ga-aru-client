@@ -1,4 +1,4 @@
-<h2 class="text-2xl">
+<h2 class="text-2xl text-amber-400 p-1">
   Days
   <Ui::Counter @value={{this.totalDays}} />
 </h2>
@@ -8,11 +8,7 @@
 {{else}}
   <ul>
     {{#each this.days.data.trackedDaysPaginated.edges as |day|}}
-      <li>
-        <LinkTo @route="tracker.day" @model={{day.node.id}}>
-          {{day-js date=day.node.date}}
-        </LinkTo>
-      </li>
+      <DayList::DayDisplay @day={{day.node}} />
     {{/each}}
   </ul>
 {{/if}}

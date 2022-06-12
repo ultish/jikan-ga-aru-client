@@ -5,12 +5,11 @@
   Error: {{this.timeChargeTotals.error.message}}
 {{else}}
   {{#each (sort-by 'trackedDay.date' this.timeChargeTotals.data.timeChargeTotals) as |tct|}}
-    Day: {{day-js date=tct.trackedDay.date}}
+    Day: {{dayjs date=tct.trackedDay.date}}
     Week: {{tct.trackedDay.week}}
     ChargeCode: {{tct.chargeCode.code}}
     Minutes: {{tct.value}}
     <br>
-    {{log tct}}
   {{/each}}
 {{/if}}
 

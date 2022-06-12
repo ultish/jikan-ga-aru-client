@@ -1,0 +1,5 @@
+<li class="{{if (eq this.isWeekOfYearEven 0) 'bg-blue-700' 'bg-blue-600 text-emerald-300'}} p-1">
+  <LinkTo @route="tracker.day" @model={{@day.node.id}}>
+    {{this.weekOfYear}} {{dayjs-format @day.node.date 'YYYY-MM-DD ddd '}}
+  </LinkTo>
+</li>

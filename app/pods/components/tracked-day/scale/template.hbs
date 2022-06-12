@@ -6,9 +6,9 @@
 
   Width: {{this.containerWidth}}
 
-  <div id="tick-container">
+  <div id="tick-container" class="">
     {{#each this.formattedTicks as |tick|}}
-      <div class="tick-hour text-base odd:bg-green-800">
+      <div class="tick-hour text-base odd:bg-gray-900">
         {{tick}}
       </div>
     {{/each}}
@@ -16,5 +16,5 @@
 
 
   {{@day.date}}
- 
+
 </div>

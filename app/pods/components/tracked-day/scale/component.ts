@@ -3,7 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { GQLTrackedDay } from 'jikan-ga-aru-client/graphql/schemas';
 import { scaleTime, ScaleTime } from 'd3-scale';
-import dayjs, { UnitType } from 'dayjs';
+import dayjs, { ManipulateType } from 'dayjs';
 
 interface TrackedDayArgs {
   day: GQLTrackedDay;
@@ -16,7 +16,7 @@ export default class TrackedDay extends Component<TrackedDayArgs> {
   @tracked containerWidth = 0;
   @tracked startTime = dayjs().startOf('day');
   @tracked stopTime = dayjs().startOf('day');
-  @tracked scale?: ScaleTime<Number, Number>;
+  @tracked scale?: ScaleTime<number, number>;
   @tracked ticks: Date[] = [];
   @tracked tickFormat?: (d: Date) => string;
 
@@ -55,7 +55,11 @@ export default class TrackedDay extends Component<TrackedDayArgs> {
     return this.scale;
   }
 
-  calcStopTime(startTime: dayjs.Dayjs, value: number, unit: UnitType = 'hour') {
+  calcStopTime(
+    startTime: dayjs.Dayjs,
+    value: number,
+    unit: ManipulateType = 'hour'
+  ) {
     const earliest = startTime.clone().startOf('day');
     const latest = earliest.clone().add(23, 'hours');
 

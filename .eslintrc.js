@@ -2,7 +2,7 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
@@ -14,14 +14,13 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended',
+    'plugin:@typescript-eslint/recommended', // uses typescript-specific linting rules
     'plugin:prettier/recommended',
   ],
   env: {
     browser: true,
   },
-  rules: {
-    'no-curly-component-invocation': { allow: ['day-js'] },
-  },
+  rules: {},
   overrides: [
     // node files
     {

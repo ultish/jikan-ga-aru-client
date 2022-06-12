@@ -1,6 +1,8 @@
 import Component from '@glimmer/component';
 // import { tracked } from '@glimmer/tracking';
 import { useQuery } from 'glimmer-apollo';
+import weekofyear from 'dayjs/plugin/weekOfYear';
+import dayjs from 'dayjs';
 
 import {
   GQLQuery,
@@ -12,6 +14,11 @@ import { GET_DAYS } from 'jikan-ga-aru-client/graphql/queries/queries';
 interface DayListArgs {}
 
 export default class DayList extends Component<DayListArgs> {
+  constructor(owner: unknown, args: DayListArgs) {
+    super(owner, args);
+    dayjs.extend(weekofyear);
+  }
+
   days = useQuery<GQLQuery, QueryToTrackedDaysPaginatedArgs>(this, () => [
     GET_DAYS,
   ]);

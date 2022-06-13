@@ -2,12 +2,18 @@
   Days
   <Ui::Counter @value={{this.totalDays}} />
 </h2>
-
+<EmberFlatpickr
+  @date={{this.date}}
+  @onChange={{this.onDateChange}}
+  @enableTime={{false}}
+  @onReady={{this.onReady}}
+  placeholder='Add new date...'
+/>
 {{#if this.days.loading}}
   Loading...
 {{else}}
   <ul>
-    {{#each this.days.data.trackedDaysPaginated.edges as |day|}}
+    {{#each (sort-by 'node.date:desc' this.days.data.trackedDaysPaginated.edges) as |day|}}
       <DayList::DayDisplay @day={{day.node}} />
     {{/each}}
   </ul>

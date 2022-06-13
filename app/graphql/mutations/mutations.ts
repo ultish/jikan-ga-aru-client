@@ -8,3 +8,15 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+export const CREATE_DAY = gql`
+  mutation CreateTrackedDay($date: Float!, $mode: DayMode) {
+    createTrackedDay(date: $date, mode: $mode) {
+      id
+      date
+      mode
+      week
+      year
+    }
+  }
+`;

@@ -2,8 +2,8 @@ import Component from '@glimmer/component';
 import { useMutation } from 'glimmer-apollo';
 import {
   GQLMutation,
-  MutationToCreateUserArgs,
   GQLQuery,
+  MutationToCreateUserArgs,
   QueryToUsersArgs,
 } from 'jikan-ga-aru-client/graphql/schemas';
 import { CREATE_USER } from 'jikan-ga-aru-client/graphql/mutations/mutations';
@@ -36,7 +36,7 @@ export default class UserCreate extends Component<UserCreateArgs> {
 
       console.log(existingUsers);
       if (newUser) {
-        let updateUsers = [newUser];
+        const updateUsers = [newUser];
 
         if (existingUsers) {
           updateUsers.pushObjects(existingUsers);

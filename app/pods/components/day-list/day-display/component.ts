@@ -14,6 +14,10 @@ export default class DayList extends Component<DayDisplayArgs> {
     dayjs.extend(weekofyear);
   }
 
+  get date() {
+    return dayjs(this.args.day?.date);
+  }
+
   get weekOfYear() {
     return dayjs(this.args.day?.date).week();
   }

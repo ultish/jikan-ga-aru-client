@@ -1,0 +1,12 @@
+{{#if this.trackedTasksQuery.loading}}
+  Loading...
+{{else if this.trackedTasksQuery.error}}
+  Error: {{this.trackedTasksQuery.error.message}}
+{{else}}
+  Tracked Tasks: {{this.trackedTasks.length}}
+  {{#each this.trackedTasks as |tt|}}
+    id: {{tt.id}}
+    <br>
+  {{/each}}
+{{/if}}
+{{yield this.trackedTasks}}

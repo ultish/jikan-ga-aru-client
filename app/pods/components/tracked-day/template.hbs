@@ -4,8 +4,10 @@
 <div
   class="tracked-base-totals overflow-y-auto bg-emerald-500 text-green-900 {{this.styleNamespace}}-totals">
   Totals
-  <TimeChargeTotals
-    @year={{this.day.year}}
-    @week={{this.day.week}}
-  />
+  {{#if this.day}}
+    <TimeChargeTotals
+      @year={{this.day.year}}
+      @week={{this.day.week}}
+    />
+  {{/if}}
 </div>

@@ -1,0 +1,36 @@
+& {
+  $trackedWidth: 300px;
+  $blockHeight: 30px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding-bottom: 15px;
+
+  #tracked-task-details {
+    width: $trackedWidth;
+    flex-shrink: 0;
+    border-bottom: 1px solid black;
+  }
+
+  #time-container {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid black;
+
+    .block {
+      width: 15px;
+      min-width: 15px;
+      height: $blockHeight;
+      cursor: pointer;
+
+      &:nth-child(odd) {
+        background: whitesmoke;
+      }
+
+      &:nth-child(even) {
+        background: antiquewhite;
+      }
+    }
+  }
+}

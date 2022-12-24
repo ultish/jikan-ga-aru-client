@@ -60,3 +60,17 @@ export const GET_TIME_CHARGE_TOTALS = gql`
     }
   }
 `;
+
+export const GET_TRACKED_TASKS = gql`
+  query trackedTasks($trackedDayId: ID) {
+    trackedTasks(trackedDayId: $trackedDayId) {
+      id
+      notes
+      timeSlots
+      chargeCodes {
+        id
+        name
+      }
+    }
+  }
+`;

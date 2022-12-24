@@ -8,7 +8,7 @@ export default class Router extends EmberRouter {
 
 Router.map(function () {
   this.route('tracker', function () {
-    this.route('day', { path: '/day/:id' });
+    this.route('day', { path: '/tracker/day/:id' });
   });
   this.route('chargecodes');
 });

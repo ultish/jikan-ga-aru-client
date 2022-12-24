@@ -4,7 +4,7 @@
   {{did-resize this.onResize}}
 >
 
-  Width: {{this.containerWidth}}
+  {{dayjs-format @day.date 'YYYY-MM-DD ddd'}}
 
   <div id="tick-container" class="">
     {{#each this.formattedTicks as |tick|}}
@@ -13,8 +13,13 @@
       </div>
     {{/each}}
   </div>
-
-
-  {{@day.date}}
+  <div id="time-container">
+    <TrackedTaskList @trackedDayId={{@day.id}} as |trackedTasks|>
+      {{#each trackedTasks as |tt|}}
+        tt {{tt.id}}
+        <TrackedTask @ticks={{this.ticks}} />
+      {{/each}}
+    </TrackedTaskList>
+  </div>
 
 </div>

@@ -32,6 +32,11 @@ export default class DayList extends Component<DayListArgs> {
 
   days = useQuery<GQLQuery, QueryToTrackedDaysPaginatedArgs>(this, () => [
     GET_DAYS,
+    {
+      variables: {
+        first: 20,
+      },
+    },
   ]);
 
   createDay = useMutation<GQLMutation, MutationToCreateTrackedDayArgs>(

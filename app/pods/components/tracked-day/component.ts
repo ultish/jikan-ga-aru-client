@@ -21,6 +21,7 @@ export default class TrackedDayBase extends Component<TrackedDayBaseArgs> {
   ]);
 
   get day() {
+    console.log('fetching day for ', this.args.id);
     if (this.dayQuery.loading) {
       return undefined;
     } else {

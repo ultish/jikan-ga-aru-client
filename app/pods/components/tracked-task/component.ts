@@ -1,5 +1,7 @@
 import Component from '@glimmer/component';
 import dayjs from 'dayjs';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { cached } from 'tracked-toolbox';
 
 interface TrackedTaskArgs {

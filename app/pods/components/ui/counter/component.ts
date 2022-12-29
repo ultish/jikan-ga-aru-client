@@ -1,7 +1,10 @@
 import Component from '@glimmer/component';
 
 interface CounterArgs {
-  value: Number;
+  value: number;
 }
 
-export default class DayList extends Component<CounterArgs> {}
+export default class DayList extends Component<CounterArgs> {
+  // TODO
+  test = 1;
+}

@@ -9,9 +9,11 @@ import {
 
 import { GET_USERS } from 'jikan-ga-aru-client/graphql/queries/queries';
 
-interface UserListArgs {}
+// interface UserListArgs {
+//   //
+// }
 
-export default class UserList extends Component<UserListArgs> {
+export default class UserList extends Component {
   users = useQuery<GQLQuery, QueryToUsersArgs>(this, () => [GET_USERS]);
 
   get totalUsers(): number {

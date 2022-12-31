@@ -1,25 +1,23 @@
 <div
-  class="{{this.styleNamespace}}"
+  class='{{this.styleNamespace}}'
   {{did-insert this.onResize}}
   {{did-resize this.onResize}}
 >
-
   {{dayjs-format @day.date 'YYYY-MM-DD ddd'}}
 
-  <div id="tick-container" class="">
+  <div id='tick-container' class=''>
     {{#each this.formattedTicks as |tick|}}
-      <div class="tick-hour text-base odd:bg-gray-900">
+      <div class='tick-hour text-base odd:bg-gray-900'>
         {{tick}}
       </div>
     {{/each}}
   </div>
-  <div id="time-container">
+  <div id='time-container'>
     <TrackedTaskList @trackedDayId={{@day.id}} as |trackedTasks|>
       {{#each trackedTasks as |tt|}}
         tt {{tt.id}}
-        <TrackedTask @ticks={{this.ticks}} />
+        <TrackedTask @ticks={{this.ticks}} @trackedTask={{tt}} />
       {{/each}}
     </TrackedTaskList>
   </div>
-
 </div>

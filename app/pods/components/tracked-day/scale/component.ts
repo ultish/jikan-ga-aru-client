@@ -14,7 +14,7 @@ const TIMEBLOCK_WIDTH = 60;
 
 export default class TrackedDay extends Component<TrackedDayArgs> {
   @tracked containerWidth = 0;
-  @tracked startTime = dayjs().startOf('day');
+  @tracked startTime = dayjs().startOf('day').add(6, 'hour');
   @tracked stopTime = dayjs().startOf('day');
   @tracked scale?: ScaleTime<number, number>;
   @tracked ticks: Date[] = [];
@@ -27,11 +27,15 @@ export default class TrackedDay extends Component<TrackedDayArgs> {
     this.calculateScale();
   }
 
-  // TODO there's a bug when width > 2000px
   calculateScale() {
     const scale = scaleTime();
 
-    const availableWidth = this.containerWidth - TRACKED_TASKS_WIDTH;
+    // only showing 18hrs max
+    const maxWidth = 18 * TIMEBLOCK_WIDTH;
+    const availableWidth = Math.min(
+      this.containerWidth - TRACKED_TASKS_WIDTH,
+      maxWidth
+    );
     const numBlocks = Math.floor(availableWidth / TIMEBLOCK_WIDTH) - 1;
     const usedWidth = numBlocks * TIMEBLOCK_WIDTH;
 

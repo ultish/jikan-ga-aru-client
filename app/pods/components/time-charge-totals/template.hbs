@@ -1,21 +1,27 @@
-<h2>Time Charge Totals</h2>
+<h2>
+  Time Charge Totals
+</h2>
 {{#if this.timeChargeTotals.loading}}
   Loading...
 {{else if this.timeChargeTotals.error}}
   Error: {{this.timeChargeTotals.error.message}}
 {{else}}
-  {{#each (sort-by 'trackedDay.date' this.timeChargeTotals.data.timeChargeTotals) as |tct|}}
-    Day: {{dayjs date=tct.trackedDay.date}}
+  {{#each
+    (sort-by
+      'trackedDay.date' this.timeChargeTotals.data.timeChargeTotals
+    ) as |tct|
+  }}
+    Day: {{dayjs tct.trackedDay.date}} {{tct.trackedDay.date}}
     Week: {{tct.trackedDay.week}}
     ChargeCode: {{tct.chargeCode.code}}
     Minutes: {{tct.value}}
-    <br>
+    <br />
   {{/each}}
 {{/if}}
 
-{{!--<h3>Subscription</h3>--}}
+{{!<h3>Subscription</h3>}}
 {{!--{{#if this.timeChargeTotalSub.loading}}--}}
-{{!--  Connecting...--}}
+{{!  Connecting...}}
 {{!--{{else if this.timeChargeTotalSub.error}}--}}
 {{!--  Error: {{this.timeChargeTotalSub.error.message}}--}}
 {{!--{{else}}--}}

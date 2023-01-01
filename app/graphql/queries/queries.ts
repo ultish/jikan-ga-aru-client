@@ -74,3 +74,15 @@ export const GET_TRACKED_TASKS = gql`
     }
   }
 `;
+
+export const GET_CHARGE_CODES = gql`
+  query chargeCodes {
+    chargeCodes {
+      id
+      name
+      code
+      description
+      expired
+    }
+  }
+`;

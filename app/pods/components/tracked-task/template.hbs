@@ -1,12 +1,21 @@
 <div class='{{this.styleNamespace}}'>
   <div id='tracked-task-details'>
+    <PowerSelectMultiple
+      @searchEnabled={{true}}
+      @options={{this.chargeCodes}}
+      @selected={{@trackedTask.chargeCodes}}
+      @placeholder='Select chargecodes...'
+      @onChange={{this.updateChargeCodes}} as |chargeCode|
+    >
+      {{chargeCode.name}}
+    </PowerSelectMultiple>
     {{#each @trackedTask.chargeCodes as |cc|}}
       {{cc.name}}
     {{/each}}
     <br />
-    <input
+    <Input
       aria-label='notes'
-      value={{@trackedTask.notes}}
+      @value={{this.notes}}
       placeholder='Notes...'
       {{on 'focusout' this.updateNotes}}
     />

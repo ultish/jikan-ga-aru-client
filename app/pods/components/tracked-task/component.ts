@@ -1,9 +1,14 @@
 import Component from '@glimmer/component';
 import dayjs from 'dayjs';
-import { GQLTrackedTask } from 'jikan-ga-aru-client/graphql/schemas';
+import {
+  GQLChargeCode,
+  GQLQuery,
+  GQLTrackedTask,
+  QueryToChargeCodesArgs,
+} from 'jikan-ga-aru-client/graphql/schemas';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { cached } from 'tracked-toolbox';
+import { cached, localCopy } from 'tracked-toolbox';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { task, timeout } from 'ember-concurrency';
@@ -13,17 +18,27 @@ import {
   GQLMutation,
   MutationToUpdateTrackedTaskArgs,
 } from 'jikan-ga-aru-client/graphql/schemas';
-import { useMutation } from 'glimmer-apollo';
+import { useMutation, useQuery } from 'glimmer-apollo';
 
 import { UPDATE_TRACKED_TASK } from 'jikan-ga-aru-client/graphql/mutations/mutations';
+import { GET_CHARGE_CODES } from 'jikan-ga-aru-client/graphql/queries/queries';
 
 interface TrackedTaskArgs {
   trackedTask: GQLTrackedTask;
   ticks: Date[];
+  chargeCodes: GQLChargeCode[];
 }
 
 export default class TrackedTask extends Component<TrackedTaskArgs> {
   lastBlockClicked = -1;
+
+  @localCopy('args.trackedTask.notes') notes;
+
+  constructor(owner: unknown, args: TrackedTaskArgs) {
+    super(owner, args);
+
+    this.notes = args.trackedTask.notes;
+  }
 
   @cached
   get squares() {
@@ -60,7 +75,20 @@ export default class TrackedTask extends Component<TrackedTaskArgs> {
 
   @action
   updateNotes() {
-    //
+    this.updateTrackedTaskGql.mutate({
+      id: this.args.trackedTask.id,
+      notes: this.notes,
+    });
+  }
+
+  @action
+  updateChargeCodes(selection: GQLChargeCode[], eps: any) {
+    eps?.actions?.close();
+
+    this.updateTrackedTaskGql.mutate({
+      id: this.args.trackedTask.id,
+      chargeCodeIds: selection.map((cc) => cc.id),
+    });
   }
 
   @action
@@ -91,7 +119,7 @@ export default class TrackedTask extends Component<TrackedTaskArgs> {
   updateTrackedTask: Task<string, [number[]]> = task(
     { restartable: true },
     async (timeSlots: number[]) => {
-      await timeout(500);
+      await timeout(200);
 
       console.log('checked blocks', timeSlots);
 
@@ -109,6 +137,20 @@ export default class TrackedTask extends Component<TrackedTaskArgs> {
     GQLMutation,
     MutationToUpdateTrackedTaskArgs
   >(this, () => [UPDATE_TRACKED_TASK, {}]);
+
+  // TODO move this to somewhere common
+  chargeCodesQuery = useQuery<GQLQuery, QueryToChargeCodesArgs>(this, () => [
+    GET_CHARGE_CODES,
+  ]);
+
+  @cached
+  get chargeCodes() {
+    if (this.chargeCodesQuery.loading) {
+      return [];
+    } else {
+      return this.chargeCodesQuery.data?.chargeCodes;
+    }
+  }
 }
 
 class TimeBlock {

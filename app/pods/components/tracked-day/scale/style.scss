@@ -10,13 +10,13 @@
     top: 0;
     bottom: 0;
     right: 0;
-    left: 300px;
+    left: 200px;
     display: flex;
     flex-direction: row;
 
     .tick-hour {
-      width: 60px;
-      min-width: 60px;
+      width: 100px;
+      min-width: 100px;
       height: $containerHeight;
       display: inline-block;
       user-select: none;

@@ -57,9 +57,10 @@ export default class DayList extends Component<DayListArgs> {
   ) {
     const data = cache.readQuery<GQLQuery, QueryToTrackedDaysPaginatedArgs>({
       query: GET_DAYS,
+      variables: {
+        first: 20,
+      },
     });
-
-    console.log(result);
 
     if (data) {
       const existingDays = data.trackedDaysPaginated?.edges?.toArray();
@@ -81,12 +82,14 @@ export default class DayList extends Component<DayListArgs> {
         copy.trackedDaysPaginated.edges.pushObjects(existingDays);
       }
 
-      debugger;
       if (newDay) {
         console.log(existingDays, newDay);
 
         cache.writeQuery({
           query: GET_DAYS,
+          variables: {
+            first: 20,
+          },
           data: copy,
         });
       }
@@ -109,11 +112,11 @@ export default class DayList extends Component<DayListArgs> {
 
   @action
   async onDateChange(selectedDate: [Date]) {
-    console.log(selectedDate);
-
     await this.createDay.mutate({
       date: selectedDate[0]?.getTime(),
     });
+
+    this.date = null;
     // this.flatpickrRef?.clear();
   }
 }

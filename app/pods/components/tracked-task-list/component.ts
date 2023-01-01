@@ -5,6 +5,9 @@ import {
   QueryToTrackedTasksArgs,
 } from 'jikan-ga-aru-client/graphql/schemas';
 import { GET_TRACKED_TASKS } from 'jikan-ga-aru-client/graphql/queries/queries';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { cached } from 'tracked-toolbox';
 
 interface TrackedTaskListArgs {
   trackedDayId: string;
@@ -20,6 +23,7 @@ export default class TrackedTaskList extends Component<TrackedTaskListArgs> {
     },
   ]);
 
+  @cached
   get trackedTasks() {
     console.log('fetching tracked tasks for ', this.args.trackedDayId);
     if (this.trackedTasksQuery.loading) {

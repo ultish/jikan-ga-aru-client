@@ -1,5 +1,5 @@
 & {
-  $trackedWidth: 300px;
+  $trackedWidth: 200px;
   $blockHeight: 30px;
 
   display: flex;
@@ -14,22 +14,32 @@
   }
 
   #time-container {
+    position: absolute;
+    left: $trackedWidth;
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid black;
 
     .block {
-      width: 15px;
-      min-width: 15px;
+      width: 10px;
+      min-width: 10px;
       height: $blockHeight;
       cursor: pointer;
 
       &:nth-child(odd) {
-        background: whitesmoke;
+        background: #2a3243;
       }
 
       &:nth-child(even) {
-        background: antiquewhite;
+        background: #1b2539;
+      }
+
+      &:nth-child(5n) {
+        border-right: 1px solid #5067b0;
+      }
+      &.checked {
+        background-color: aquamarine;
+        border-right: 1px solid #2da87e;
       }
     }
   }

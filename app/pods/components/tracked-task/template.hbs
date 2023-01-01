@@ -1,10 +1,24 @@
-<div class="{{this.styleNamespace}}">
-  <div id="tracked-task-details">
-
+<div class='{{this.styleNamespace}}'>
+  <div id='tracked-task-details'>
+    {{#each @trackedTask.chargeCodes as |cc|}}
+      {{cc.name}}
+    {{/each}}
+    <br />
+    <input
+      aria-label='notes'
+      value={{@trackedTask.notes}}
+      placeholder='Notes...'
+      {{on 'focusout' this.updateNotes}}
+    />
   </div>
-  <div id="#time-container">
+  <div id='time-container'>
     {{#each this.squaresWithTimeBlocks as |block|}}
-      
+      <div
+        class='block {{if block.checked 'checked'}}'
+        role='button'
+        {{on 'click' (fn this.clicked block)}}
+      >
+      </div>
     {{/each}}
   </div>
 </div>

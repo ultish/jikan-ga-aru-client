@@ -3,10 +3,10 @@
 {{else if this.trackedTasksQuery.error}}
   Error: {{this.trackedTasksQuery.error.message}}
 {{else}}
-  Tracked Tasks: {{this.trackedTasks.length}}
+  {{!-- Tracked Tasks: {{this.trackedTasks.length}}
   {{#each this.trackedTasks as |tt|}}
     id: {{tt.id}}
     <br>
-  {{/each}}
+  {{/each}} --}}
+  {{yield this.trackedTasksQuery.data.trackedTasks}}
 {{/if}}
-{{yield this.trackedTasks}}

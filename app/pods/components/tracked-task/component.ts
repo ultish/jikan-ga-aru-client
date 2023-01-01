@@ -4,6 +4,18 @@ import { GQLTrackedTask } from 'jikan-ga-aru-client/graphql/schemas';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { cached } from 'tracked-toolbox';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import { task, timeout } from 'ember-concurrency';
+import type { Task } from 'ember-concurrency';
+
+import {
+  GQLMutation,
+  MutationToUpdateTrackedTaskArgs,
+} from 'jikan-ga-aru-client/graphql/schemas';
+import { useMutation } from 'glimmer-apollo';
+
+import { UPDATE_TRACKED_TASK } from 'jikan-ga-aru-client/graphql/mutations/mutations';
 
 interface TrackedTaskArgs {
   trackedTask: GQLTrackedTask;
@@ -11,6 +23,8 @@ interface TrackedTaskArgs {
 }
 
 export default class TrackedTask extends Component<TrackedTaskArgs> {
+  lastBlockClicked = -1;
+
   @cached
   get squares() {
     if (!this.args.ticks) {
@@ -31,18 +45,79 @@ export default class TrackedTask extends Component<TrackedTaskArgs> {
         result.push(slot++);
       }
     });
-    console.log('squares', result);
 
     return result;
   }
 
+  @cached
   get squaresWithTimeBlocks() {
-    console.log(
-      'ticks',
-      this.args.ticks,
-      this.squares,
-      this.args.trackedTask.timeSlots
-    );
-    return [];
+    const blocks = this.squares.map((num) => {
+      const checked = this.args.trackedTask.timeSlots?.includes(num) ?? false;
+      return new TimeBlock(num, checked);
+    });
+    return blocks;
+  }
+
+  @action
+  updateNotes() {
+    //
+  }
+
+  @action
+  async clicked(block: TimeBlock, e: MouseEvent) {
+    block.checked = !block.checked;
+
+    const timeSlots = this.squaresWithTimeBlocks
+      .filter((b) => b.checked)
+      .map((b) => b.timeBlock);
+
+    if (e.shiftKey) {
+      //
+    }
+
+    if (this.updateTrackedTask.isRunning) {
+      console.log('waiting on tracked task update');
+      await this.updateTrackedTask;
+    }
+
+    this.lastBlockClicked = block.timeBlock;
+
+    // clear all selections
+    this.squaresWithTimeBlocks.forEach((b) => (b.selected = false));
+
+    this.updateTrackedTask.perform(timeSlots);
+  }
+
+  updateTrackedTask: Task<string, [number[]]> = task(
+    { restartable: true },
+    async (timeSlots: number[]) => {
+      await timeout(500);
+
+      console.log('checked blocks', timeSlots);
+
+      this.updateTrackedTaskGql.mutate({
+        id: this.args.trackedTask.id,
+        chargeCodeIds: this.args.trackedTask.chargeCodes?.map((cc) => cc.id),
+        timeSlots: timeSlots,
+      });
+
+      return 'done!';
+    }
+  );
+
+  updateTrackedTaskGql = useMutation<
+    GQLMutation,
+    MutationToUpdateTrackedTaskArgs
+  >(this, () => [UPDATE_TRACKED_TASK, {}]);
+}
+
+class TimeBlock {
+  @tracked selected = false;
+  @tracked checked = false;
+  @tracked timeBlock = -1;
+
+  constructor(timeBlock: number, checked: boolean) {
+    this.timeBlock = timeBlock;
+    this.checked = checked;
   }
 }

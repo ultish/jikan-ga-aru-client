@@ -20,3 +20,27 @@ export const CREATE_DAY = gql`
     }
   }
 `;
+
+export const UPDATE_TRACKED_TASK = gql`
+  mutation UpdateTrackedTask(
+    $id: ID!
+    $notes: String
+    $chargeCodeIds: [ID!]
+    $timeSlots: [Int!]
+  ) {
+    updateTrackedTask(
+      id: $id
+      notes: $notes
+      chargeCodeIds: $chargeCodeIds
+      timeSlots: $timeSlots
+    ) {
+      id
+      notes
+      timeSlots
+      chargeCodes {
+        id
+        name
+      }
+    }
+  }
+`;

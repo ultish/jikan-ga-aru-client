@@ -15,7 +15,6 @@
   <div id='time-container'>
     <TrackedTaskList @trackedDayId={{@day.id}} as |trackedTasks|>
       {{#each trackedTasks as |tt|}}
-        tt {{tt.id}}
         <TrackedTask @ticks={{this.ticks}} @trackedTask={{tt}} />
       {{/each}}
     </TrackedTaskList>

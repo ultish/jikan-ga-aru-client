@@ -23,7 +23,8 @@ interface DayListArgs {
 
 export default class DayList extends Component<DayListArgs> {
   @tracked date: Date | null = null;
-  flatpickrRef: any;
+
+  daysToFetch = 50;
 
   constructor(owner: unknown, args: DayListArgs) {
     super(owner, args);
@@ -34,7 +35,7 @@ export default class DayList extends Component<DayListArgs> {
     GET_DAYS,
     {
       variables: {
-        first: 20,
+        first: this.daysToFetch,
       },
     },
   ]);
@@ -58,7 +59,7 @@ export default class DayList extends Component<DayListArgs> {
     const data = cache.readQuery<GQLQuery, QueryToTrackedDaysPaginatedArgs>({
       query: GET_DAYS,
       variables: {
-        first: 20,
+        first: this.daysToFetch,
       },
     });
 
@@ -88,7 +89,7 @@ export default class DayList extends Component<DayListArgs> {
         cache.writeQuery({
           query: GET_DAYS,
           variables: {
-            first: 20,
+            first: this.daysToFetch,
           },
           data: copy,
         });
@@ -101,26 +102,11 @@ export default class DayList extends Component<DayListArgs> {
   }
 
   @action
-  onDatePickerOpen() {
-    // this.date = new Date();
-  }
-
-  @action
-  onReady(_selectedDates: any, _dateStr: any, flatpickrRef: any) {
-    this.flatpickrRef = flatpickrRef;
-  }
-
-  @action
   async onDateChange(selectedDate: [Date]) {
     await this.createDay.mutate({
       date: selectedDate[0]?.getTime(),
     });
 
     this.date = null;
-    // this.flatpickrRef?.clear();
   }
 }
-
-// TODO the useQuery won't update from server automatically. Try using
-//  createUser here to see if they cache updates, and hence the useQuery
-//  updating (as it watches the cache)

@@ -2,8 +2,13 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { GQLTrackedDay } from 'jikan-ga-aru-client/graphql/schemas';
-import { scaleTime, ScaleTime } from 'd3-scale';
+import { scaleTime /*, ScaleTime*/ } from 'd3-scale';
 import dayjs, { ManipulateType } from 'dayjs';
+import { inject as service } from '@ember/service';
+import Prefs from 'jikan-ga-aru-client/pods/prefs/service';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { cached } from 'tracked-toolbox';
 
 interface TrackedDayArgs {
   day: GQLTrackedDay;
@@ -13,23 +18,39 @@ const TRACKED_TASKS_WIDTH = 300;
 const TIMEBLOCK_WIDTH = 60;
 
 export default class TrackedDay extends Component<TrackedDayArgs> {
+  @service declare prefs: Prefs;
+
   @tracked containerWidth = 0;
-  @tracked startTime = dayjs().startOf('day').add(6, 'hour');
-  @tracked stopTime = dayjs().startOf('day');
-  @tracked scale?: ScaleTime<number, number>;
-  @tracked ticks: Date[] = [];
-  @tracked tickFormat?: (d: Date) => string;
+  // @tracked startTime = dayjs().startOf('day').add(6, 'hour');
+  // @tracked stopTime = dayjs().startOf('day');
+  // @tracked scale?: ScaleTime<number, number>;
+  // @tracked ticks: Date[] = [];
+  // @tracked tickFormat?: (d: Date) => string;
+
+  @action
+  initialise(ele: HTMLElement) {
+    this.onResize(ele);
+  }
+
+  get startTime() {
+    console.log('starttime', this.prefs.startTimeNum);
+    return dayjs().startOf('day').add(this.prefs.startTimeNum, 'hour');
+  }
+
+  @action
+  willDestroy() {
+    super.willDestroy();
+  }
 
   @action
   onResize(ele: HTMLElement) {
     this.containerWidth = ele.clientWidth ?? 0;
 
-    this.calculateScale();
+    // this.calculateScale();
   }
 
-  calculateScale() {
-    const scale = scaleTime();
-
+  @cached
+  get numBlocks() {
     // only showing 18hrs max
     const maxWidth = 18 * TIMEBLOCK_WIDTH;
     const availableWidth = Math.min(
@@ -37,26 +58,39 @@ export default class TrackedDay extends Component<TrackedDayArgs> {
       maxWidth
     );
     const numBlocks = Math.floor(availableWidth / TIMEBLOCK_WIDTH) - 1;
-    const usedWidth = numBlocks * TIMEBLOCK_WIDTH;
 
-    this.stopTime = this.calcStopTime(
-      this.startTime,
-      numBlocks * TIMEBLOCK_WIDTH,
-      'minutes'
-    );
+    return numBlocks;
+  }
+
+  @cached
+  get scale() {
+    const scale = scaleTime();
+    const usedWidth = this.numBlocks * TIMEBLOCK_WIDTH;
 
     scale
       .domain([this.startTime.toDate(), this.stopTime.toDate()])
       .range([0, usedWidth]);
 
-    const ticks = scale.ticks(numBlocks);
+    return scale;
+  }
 
-    this.scale = scale;
-    this.ticks.clear();
-    this.ticks.pushObjects(ticks);
-    this.tickFormat = scale.tickFormat();
+  @cached
+  get ticks() {
+    return this.scale.ticks(this.numBlocks);
+  }
 
-    return this.scale;
+  @cached
+  get stopTime() {
+    return this.calcStopTime(
+      this.startTime,
+      this.numBlocks * TIMEBLOCK_WIDTH,
+      'minutes'
+    );
+  }
+
+  @cached
+  get tickFormat() {
+    return this.scale.tickFormat();
   }
 
   calcStopTime(
@@ -75,6 +109,7 @@ export default class TrackedDay extends Component<TrackedDayArgs> {
     }
   }
 
+  @cached
   get formattedTicks() {
     return this.ticks?.map((date) =>
       this.tickFormat ? this.tickFormat(date) : date

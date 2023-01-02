@@ -9,10 +9,6 @@
     >
       {{chargeCode.name}}
     </PowerSelectMultiple>
-    {{#each @trackedTask.chargeCodes as |cc|}}
-      {{cc.name}}
-    {{/each}}
-    <br />
     <Input
       aria-label='notes'
       @value={{this.notes}}

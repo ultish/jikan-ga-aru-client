@@ -1,9 +1,12 @@
 <div
   class='{{this.styleNamespace}}'
-  {{did-insert this.onResize}}
   {{did-resize this.onResize}}
+  {{did-insert this.initialise}}
+  {{will-destroy this.willDestroy}}
 >
   {{dayjs-format @day.date 'YYYY-MM-DD ddd'}}
+  <br />
+  {{this.startTime}}
 
   <div id='tick-container' class=''>
     {{#each this.formattedTicks as |tick|}}

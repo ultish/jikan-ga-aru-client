@@ -21,11 +21,6 @@ export default class TrackedDay extends Component<TrackedDayArgs> {
   @service declare prefs: Prefs;
 
   @tracked containerWidth = 0;
-  // @tracked startTime = dayjs().startOf('day').add(6, 'hour');
-  // @tracked stopTime = dayjs().startOf('day');
-  // @tracked scale?: ScaleTime<number, number>;
-  // @tracked ticks: Date[] = [];
-  // @tracked tickFormat?: (d: Date) => string;
 
   @action
   initialise(ele: HTMLElement) {
@@ -45,8 +40,6 @@ export default class TrackedDay extends Component<TrackedDayArgs> {
   @action
   onResize(ele: HTMLElement) {
     this.containerWidth = ele.clientWidth ?? 0;
-
-    // this.calculateScale();
   }
 
   @cached

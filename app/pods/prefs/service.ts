@@ -13,7 +13,6 @@ export default class Prefs extends Service {
 
     addEventListener('storage', (e: StorageEvent) => {
       if (e.key === 'jga-start-time') {
-        debugger;
         this.startTimeNum = Number.parseInt(e.newValue ?? '6');
       }
     });

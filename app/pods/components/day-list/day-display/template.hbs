@@ -1,3 +1,4 @@
+{{! @glint-nocheck: not typesafe yet }}
 <li class="{{if this.isWeekOfYearEven 'bg-blue-700' 'bg-blue-600 text-emerald-300'}} p-1">
   <LinkTo @route="tracker.day" @model={{@day.id}}>
     {{this.weekOfYear}} {{dayjs-format this.date 'YYYY-MM-DD ddd '}}

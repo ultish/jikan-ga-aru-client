@@ -21,20 +21,13 @@
     "module": "es6",
     "experimentalDecorators": true,
     "paths": {
-      "jikan-ga-aru-client/tests/*": [
-        "tests/*"
-      ],
-      "jikan-ga-aru-client/*": [
-        "app/*"
-      ],
-      "*": [
-        "types/*"
-      ]
+      "jikan-ga-aru-client/tests/*": ["tests/*"],
+      "jikan-ga-aru-client/*": ["app/*"],
+      "*": ["types/*"]
     }
   },
-  "include": [
-    "app/**/*",
-    "tests/**/*",
-    "types/**/*"
-  ]
+  "glint": {
+    "environment": "ember-loose"
+  },
+  "include": ["app/**/*", "tests/**/*", "types/**/*"]
 }

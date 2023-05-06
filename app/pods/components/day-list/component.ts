@@ -22,7 +22,7 @@ interface DayListArgs {
 }
 
 export default class DayList extends Component<DayListArgs> {
-  @tracked date: Date | undefined = undefined;
+  @tracked date: Date | null = null;
 
   daysToFetch = 50;
 

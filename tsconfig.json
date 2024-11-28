@@ -24,7 +24,9 @@
       "jikan-ga-aru-client/tests/*": ["tests/*"],
       "jikan-ga-aru-client/*": ["app/*"],
       "*": ["types/*"]
-    }
+    },
+    "skipLibCheck": true,
+    "types": ["ember-source/types", "@glint/environment-ember-loose"]
   },
   "glint": {
     "environment": "ember-loose"

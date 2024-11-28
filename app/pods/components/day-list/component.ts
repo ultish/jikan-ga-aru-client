@@ -45,7 +45,7 @@ export default class DayList extends Component<DayListArgs> {
     () => [
       CREATE_DAY,
       {
-        update: (cache, result) => {
+        update: (cache: ApolloCache<any>, result: Omit<FetchResult<GQLMutation>, "context">) => {
           this.updateCache(cache, result);
         },
       },
@@ -64,7 +64,7 @@ export default class DayList extends Component<DayListArgs> {
     });
 
     if (data) {
-      const existingDays = data.trackedDaysPaginated?.edges?.toArray();
+      const existingDays = data.trackedDaysPaginated?.edges;
       const newDay = result.data?.createTrackedDay;
 
       const newNode: GQLTrackedDayEdge = {
@@ -80,7 +80,7 @@ export default class DayList extends Component<DayListArgs> {
       };
 
       if (existingDays) {
-        copy.trackedDaysPaginated.edges.pushObjects(existingDays);
+        copy.trackedDaysPaginated.edges.push(...existingDays);
       }
 
       if (newDay) {

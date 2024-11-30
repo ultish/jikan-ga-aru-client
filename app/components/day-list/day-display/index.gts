@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import weekofyear from 'dayjs/plugin/weekOfYear';
 import dayjs from 'dayjs';
-import { DayjsFormat as dayjsFormat } from 'ember-dayjs/helpers/dayjs-format';
+import   dayjsFormat  from 'ember-dayjs/helpers/dayjs-format';
 import { GQLTrackedDay } from 'jikan-ga-aru-client/graphql/schemas';
 import { LinkTo } from '@ember/routing';
 

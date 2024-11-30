@@ -32,6 +32,14 @@ export default class TrackedDayBase extends Component<TrackedDayBaseArgs> {
   }
 
   <template>
+    <style scoped>
+      .tracked-day-body {
+        height: calc(100vh - 150px);
+      }
+      .tracked-day--totals {
+        height: 100px
+      }
+    </style>
     <div class="overflow-y-auto tracked-day-body bg-gray-800 text-teal-400 text-sm">
       <TrackedDayScale @day={{this.day}} />
     </div>

@@ -13,7 +13,7 @@ import TrackedTaskList from '../../tracked-task-list';
 import TrackedTask from '../../tracked-task';
 
 // import { modifier as didResize } from 'ember-did-resize-modifier';
-import { DayjsFormat as dayjsFormat } from 'ember-dayjs/helpers/dayjs-format';
+import dayjsFormat from 'ember-dayjs/helpers/dayjs-format';
 
 interface TrackedDayArgs {
   day: GQLTrackedDay;

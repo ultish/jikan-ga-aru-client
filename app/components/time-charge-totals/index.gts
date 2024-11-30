@@ -11,7 +11,7 @@ import { GET_TIME_CHARGE_TOTALS } from 'jikan-ga-aru-client/graphql/queries/quer
 
 import SortBy  from 'ember-composable-helpers/helpers/sort-by';
 
-import { Dayjs as dayjs } from 'ember-dayjs/helpers/dayjs';
+import    dayjs  from 'ember-dayjs/helpers/dayjs';
 
 interface TimeChargeTotalsArgs {
   week: number | undefined;

@@ -10,6 +10,7 @@ import { CREATE_USER } from 'jikan-ga-aru-client/graphql/mutations/mutations';
 import { GET_USERS } from 'jikan-ga-aru-client/graphql/queries/queries';
 import { ApolloCache, FetchResult } from '@apollo/client';
 import { action } from '@ember/object';
+import { on } from '@ember/modifier';
 
 interface UserCreateArgs {}
 
@@ -59,6 +60,7 @@ export default class UserCreate extends Component<UserCreateArgs> {
       variables: {
         input: {
           username: 'test',
+          password: 'password'
         },
       },
     });

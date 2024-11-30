@@ -11,4 +11,5 @@ Router.map(function () {
     this.route('day', { path: '/tracker/day/:id' });
   });
   this.route('chargecodes');
+  this.route('tracker.days');
 });

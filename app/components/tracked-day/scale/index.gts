@@ -3,14 +3,17 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { GQLTrackedDay } from 'jikan-ga-aru-client/graphql/schemas';
 import { scaleTime } from 'd3-scale';
-import dayjs, { ManipulateType } from 'dayjs';
+import dayjs from 'dayjs';
 import { inject as service } from '@ember/service';
-import Prefs from 'jikan-ga-aru-client/pods/prefs/service';
+import Prefs from 'jikan-ga-aru-client/services/prefs';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { cached } from 'tracked-toolbox';
 import TrackedTaskList from '../../tracked-task-list';
 import TrackedTask from '../../tracked-task';
+
+// import { modifier as didResize } from 'ember-did-resize-modifier';
+import { DayjsFormat as dayjsFormat } from 'ember-dayjs/helpers/dayjs-format';
 
 interface TrackedDayArgs {
   day: GQLTrackedDay;
@@ -78,11 +81,11 @@ export default class TrackedDay extends Component<TrackedDayArgs> {
     {{! @glint-nocheck: not typesafe yet }}
     <div
       class='tracked-day-scale'
-      {{did-resize this.onResize}}
+      {{!-- {{didResize this.onResize}}
       {{did-insert this.initialise}}
-      {{will-destroy this.willDestroy}}
+      {{will-destroy this.willDestroy}} --}}
     >
-      {{dayjs-format @day.date 'YYYY-MM-DD ddd'}}
+      {{dayjsFormat @day.date 'YYYY-MM-DD ddd'}}
 
       <div id='tick-container' class=''>
         {{#each this.formattedTicks as |tick|}}

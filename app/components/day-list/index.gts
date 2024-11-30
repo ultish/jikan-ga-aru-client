@@ -19,6 +19,8 @@ import EmberFlatpickr from 'ember-flatpickr/components/ember-flatpickr';
 import UiCounter from '../ui/counter';
 import DayListDayDisplay from './day-display';
 
+import SortBy  from 'ember-composable-helpers/helpers/sort-by';
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface DayListArgs {
   //
@@ -137,7 +139,7 @@ export default class DayList extends Component<DayListArgs> {
     {{else}}
       <ul>
         {{#each
-          (sort-by
+          (SortBy
             'node.date:desc' this.days.data.trackedDaysPaginated.edges
           ) as |day|
         }}

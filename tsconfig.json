@@ -26,10 +26,19 @@
       "*": ["types/*"]
     },
     "skipLibCheck": true,
-    "types": ["ember-source/types", "@glint/environment-ember-loose"]
+    "types": [
+      "ember-source/types",
+      "@glint/environment-ember-loose",
+      "@glint/environment-ember-loose/registry"
+    ]
   },
   "glint": {
-    "environment": "ember-loose"
+ "environment": [
+      "ember-loose",
+      "ember-template-imports",
+    ],
+    "template-strict": true,
+    "checkStandaloneTemplates": true
   },
   "include": ["app/**/*", "tests/**/*", "types/**/*"]
 }

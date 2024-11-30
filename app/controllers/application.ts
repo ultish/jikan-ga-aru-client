@@ -2,7 +2,8 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import Prefs from 'jikan-ga-aru-client/pods/prefs/service';
+import Prefs from 'jikan-ga-aru-client/services/prefs';
+import '@glint/environment-ember-loose';
 
 export default class ApplicationController extends Controller {
   @service declare prefs: Prefs;

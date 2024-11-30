@@ -13,6 +13,8 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { task, timeout } from 'ember-concurrency';
 import type { Task } from 'ember-concurrency';
+import { on } from '@ember/modifier';
+import { fn } from '@ember/helper';
 
 import {
   GQLMutation,
@@ -170,9 +172,9 @@ export default class TrackedTask extends Component<TrackedTaskArgs> {
         >
           {{chargeCode.name}}
         </PowerSelectMultiple>
-        <Input
+        <input
           aria-label='notes'
-          @value={{this.notes}}
+          value={{this.notes}}
           placeholder='Notes...'
           {{on 'focusout' this.updateNotes}}
         />

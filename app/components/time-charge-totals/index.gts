@@ -9,6 +9,10 @@ import {
 import { ON_TIME_CHARGE_TOTAL_CHANGE } from 'jikan-ga-aru-client/graphql/subscriptions/subscriptions';
 import { GET_TIME_CHARGE_TOTALS } from 'jikan-ga-aru-client/graphql/queries/queries';
 
+import SortBy  from 'ember-composable-helpers/helpers/sort-by';
+
+import { Dayjs as dayjs } from 'ember-dayjs/helpers/dayjs';
+
 interface TimeChargeTotalsArgs {
   week: number | undefined;
   year: number;
@@ -59,7 +63,7 @@ export default class TimeChargeTotals extends Component<TimeChargeTotalsArgs> {
       Error: {{this.timeChargeTotals.error.message}}
     {{else}}
       {{#each
-        (sort-by
+        (SortBy
           'trackedDay.date' this.timeChargeTotals.data.timeChargeTotals
         ) as |tct|
       }}

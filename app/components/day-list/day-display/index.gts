@@ -1,8 +1,9 @@
 import Component from '@glimmer/component';
 import weekofyear from 'dayjs/plugin/weekOfYear';
 import dayjs from 'dayjs';
+import { DayjsFormat as dayjsFormat } from 'ember-dayjs/helpers/dayjs-format';
 import { GQLTrackedDay } from 'jikan-ga-aru-client/graphql/schemas';
-import LinkTo from '@ember/routing/link-to';
+import { LinkTo } from '@ember/routing';
 
 interface DayDisplayArgs {
   day: GQLTrackedDay;
@@ -34,7 +35,7 @@ export default class DayList extends Component<DayDisplayArgs> {
     {{! @glint-nocheck: not typesafe yet }}
     <li class="{{if this.isWeekOfYearEven 'bg-blue-700' 'bg-blue-600 text-emerald-300'}} p-1">
       <LinkTo @route="tracker.day" @model={{@day.id}}>
-        {{this.weekOfYear}} {{dayjs-format this.date 'YYYY-MM-DD ddd '}}
+        {{this.weekOfYear}} {{dayjsFormat this.date 'YYYY-MM-DD ddd '}}
       </LinkTo>
     </li>
   </template>

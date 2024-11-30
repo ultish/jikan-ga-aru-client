@@ -8,6 +8,11 @@ module.exports = {
       checkDynamicComponents: true,
       checkHelpers: true,
       checkModifiers: true,
+      checkTemplateLiterals: true
     },
   },
+  template: {
+    templateLiteralFormat: 'hbs',
+    templateTag: 'template',
+  }
 };

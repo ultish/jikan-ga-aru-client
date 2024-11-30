@@ -12,6 +12,7 @@ import {
   QueryToTrackedDaysPaginatedArgs,
 } from 'jikan-ga-aru-client/graphql/schemas';
 
+
 import { GET_DAYS } from 'jikan-ga-aru-client/graphql/queries/queries';
 import { CREATE_DAY } from 'jikan-ga-aru-client/graphql/mutations/mutations';
 import { ApolloCache, FetchResult } from '@apollo/client';
@@ -110,16 +111,16 @@ export default class DayList extends Component<DayListArgs> {
   async onDateChange(selectedDates: Date[]) {
     this.date = selectedDates[0];
     const date = dayjs(this.date);
+debugger;
 
-    await this.createDay.mutate({
-      variables: {
-        input: {
-          date: date.format('YYYY-MM-DD'),
-          week: date.week(),
-          year: date.year(),
-        },
+    await this.createDay.mutate(
+       {
+          date: date.toDate().getTime(),
+          mode: 'NORMAL'
+          // week: date.week(),
+          // year: date.year(),
       },
-    });
+    );
   }
 
   <template>

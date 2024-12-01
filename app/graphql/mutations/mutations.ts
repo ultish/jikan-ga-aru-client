@@ -10,7 +10,7 @@ export const CREATE_USER = gql`
 `;
 
 export const CREATE_DAY = gql`
-  mutation CreateTrackedDay($date: Float!, $mode: DayMode) {
+  mutation CreateTrackedDay($date: Float!, $mode: String) {
     createTrackedDay(date: $date, mode: $mode) {
       id
       date

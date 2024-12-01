@@ -20,7 +20,7 @@ type Mutation {
     deleteChargeCode(id: ID!): Boolean
     createTimeCharge(timeSlot: Int!, chargeCodeId: ID!, trackedDayID: ID!, chargeCodeAppearance: Int, totalChargeCodesForSlot: Int): TimeCharge!
     updateTimeCharge(id: ID!, chargeCodeAppearance: Int, totalChargeCodesForSlot: Int): TimeCharge!
-    createTrackedDay(date: Float!, mode: DayMode): TrackedDay
+    createTrackedDay(date: Float!, mode: String): TrackedDay
     deleteTrackedDay(id: ID!): Boolean
     updateTrackedDay(id: ID!, mode: DayMode, date: Float, trackedTaskIds: [String!]): TrackedDay
     createTrackedTask(trackedDayId: ID!, notes: String): TrackedTask!

@@ -9,7 +9,7 @@ import {
   GQLQuery,
   GQLTrackedDayEdge,
   MutationToCreateTrackedDayArgs,
-  QueryToTrackedDaysPaginatedArgs,
+  QueryToTrackedDaysPaginatedArgs
 } from 'jikan-ga-aru-client/graphql/schemas';
 
 
@@ -116,7 +116,7 @@ debugger;
     await this.createDay.mutate(
        {
           date: date.toDate().getTime(),
-          mode: 'NORMAL'
+          // mode: 'NORMAL',
           // week: date.week(),
           // year: date.year(),
       },
